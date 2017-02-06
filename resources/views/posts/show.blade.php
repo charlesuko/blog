@@ -16,7 +16,7 @@
 			
 			<dl class="dl-horizontal">
 				<label>Url:</label>
-				<p><a href="{{ url($post->slug)}}">{{url($post->slug)}}</p>
+				<p><a href="{{route('blog.single',$post->slug)}}">{{route('blog.single',$post->slug)}}</p>
 			</dl>
 
 
