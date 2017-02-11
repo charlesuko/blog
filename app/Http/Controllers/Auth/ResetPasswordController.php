@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-
+use App\Notifications\PasswordResetConfirmationNotification;
+use Illuminate\Support\Facades\Auth;
 class ResetPasswordController extends Controller
 {
     /*
@@ -17,16 +16,14 @@ class ResetPasswordController extends Controller
     | explore this trait and override any methods you wish to tweak.
     |
     */
-
     use ResetsPasswords;
-
+    
     /**
-     * Where to redirect users after resetting their password.
+     * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
+    protected $redirectTo = '/admin';
     /**
      * Create a new controller instance.
      *
@@ -35,5 +32,24 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+    
+    /**
+     * Get the response for a successful password reset.
+     *
+     * @param  string  $response
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendResetResponse($response)
+    {
+        // Get the currently authenticated user...
+        $user = Auth::user();
+        //send Activation Key notification
+        // TODO: in the future, you may want to queue the mail since sending the mail can slow down the response
+        $user->notify(new PasswordResetConfirmationNotification());
+        
+        return redirect($this->redirectPath())
+            ->with('message', 'Your password has been succesfully udpdated.')
+            ->with('status', 'success');
     }
 }
