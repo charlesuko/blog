@@ -9,4 +9,18 @@ class PagesController extends Controller
     {
         return view('front.pages.home');
     }
+
+    public function getAbout() {
+		$first = 'Alex';
+		$last = 'Curtis';
+		$fullname = $first . " " . $last;
+		$email = 'alex@jacurtis.com';
+		$data = [];
+		$data['email'] = $email;
+		$data['fullname'] = $fullname;
+		return view('pages.about')->withData($data);
+	}
+	public function getContact() {
+		return view('pages.contact');
+	}
 }
