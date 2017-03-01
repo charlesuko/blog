@@ -29,6 +29,10 @@ Route::get('password/reset', ['as' => 'password.reset', 'uses' => 'Auth\ForgotPa
     Route::resource('categories', 'CategoryController', ['except'=>['create']]);
     Route::resource('tags', 'TagController', ['except' => ['create']]);
 
+    //comment
+    Route::post('comments/{post_id}', ['uses' => 'CommentController@store', 'as' => 'comments.store']);
+
+
 
 Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
 Route::get('blog', ['uses' =>'BlogController@getIndex', 'as' =>'blog.index']);
