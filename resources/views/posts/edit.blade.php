@@ -7,6 +7,17 @@
 @section('stylesheets')
 
 	{!! Html::style('css/select2.min.css') !!}
+
+	<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'link',
+            menubar: false
+        });
+    </script>
+    
 @endsection
 
 <div class="row">
